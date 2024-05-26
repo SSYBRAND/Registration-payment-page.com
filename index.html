@@ -1,0 +1,208 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Tournament</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .registration-form {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #1a1a1a;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        #responseMessage {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .payment-options {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .payment-option {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .payment-option img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .copy-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #1a1a1a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Registration &<br> Payments ✓
+        <br>
+        <center><font color=aqua size=3><strong>Powered BY :- &nbsp;Sattu technologies</font></strong></center>
+        </h1>
+    </header>
+    <main id="mainContent">
+        <section class="registration-form">
+            <h2>Register Now</h2>
+            <form id="registrationForm">
+                <label for="name">Free Fire Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="playerId">Free Fire ID:</label>
+                <input type="text" id="playerId" name="playerId" required>
+                
+                <label for="email">Gmail Account:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="level">Level of Free Fire ID:</label>
+                <input type="number" id="level" name="level" required>
+
+                <label for="paymentName">Payment Account Holder Name:</label>
+                <input type="text" id="paymentName" name="paymentName" required>
+                
+                <button type="submit">Register</button>
+            </form>
+        </section>
+        <section id="responseMessage"></section>
+    </main>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const playerId = document.getElementById('playerId').value;
+            const email = document.getElementById('email').value;
+            const level = document.getElementById('level').value;
+            const paymentName = document.getElementById('paymentName').value;
+
+            const responseMessage = document.getElementById('responseMessage');
+
+            const registrationData = {
+                name: name,
+                playerId: playerId,
+                email: email,
+                level: level,
+                paymentName: paymentName
+            };
+
+            // Send registration data via email
+            sendEmail(name, playerId, email, level, paymentName);
+
+            responseMessage.textContent = 'Registration successful! Redirecting to payment...';
+
+            setTimeout(() => {
+                displayPaymentPage();
+            }, 2000);
+        });
+
+        function sendEmail(name, playerId, email, level, paymentName) {
+            const emailBody = `Name: ${name}\nFree Fire ID: ${playerId}\nEmail: ${email}\nLevel: ${level}\nPayment Account Holder Name: ${paymentName}`;
+            window.location.href = `mailto:ssybrand58@gmail.com?subject=Tournament Registration&body=${encodeURIComponent(emailBody)}`;
+        }
+
+        function displayPaymentPage() {
+            const mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = `
+                <h1>Payment Page</h1>
+                <p>Please complete your payment to join the tournament.</p>
+                <p>Wait after payment successful we will forward on you Tournament dashboard don't press back for safety reasons.<br>~Thanks (Tournament Team)</p>
+                <div class="payment-options">
+                    <h3><font color=blue><b>Choose Payment Method &nbsp;<img src="https://media.tenor.com/rr-muzxX2V4AAAAj/twitter-verified-check-mark.gif"width="6%"></b></font></h3>
+                    <div class="payment-option" onclick="openPaymentApp('Google Pay', 'upi://pay?pa=sattu0001@axl&pn=Tournament&am=15&cu=INR')">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd80fk3N3gC_GQ4Nq5aKNB1wgSWBBSVAXijQ&usqp=CAU" alt="Google Pay">
+                        <p>Google Pay</p>
+                    </div>
+                    <div class="payment-option" onclick="openPaymentApp('PhonePe', 'upi://pay?pa=sy6394482-1@oksbi&pn=Tournament&am=15&cu=INR')">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa5q6sx1VBwoChYbiKQAw5E-rxE-MGTKfkOgax9pRo95IW3GCQO3H28Xg&s=10" alt="PhonePe">
+                        <p>PhonePe</p>
+                    </div>
+                    <div class="payment-option" onclick="openPaymentApp('Amazon Pay', 'upi://pay?pa=sattu0001@axl&pn=Tournament&am=15&cu=INR')">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwapoXfnv_4C2mkqjIHN4r1YmdpVj3A_0kWUk3aIKSYQ&s" alt="Amazon Pay">
+                        <p>Amazon Pay</p>
+                        
+                        
+                    </div>
+                </div>
+            `;
+        }
+
+        function openPaymentApp(appName, url) {
+            window.location.href = url;
+            alert(`Redirecting to ${appName}...`);
+            // Simulate payment success
+            setTimeout(() => {
+                alert('Payment successful!');
+                window.location.href = 'register.html';
+            }, 2000);
+        }
+    </script>
+    
+</body>
+</html>
